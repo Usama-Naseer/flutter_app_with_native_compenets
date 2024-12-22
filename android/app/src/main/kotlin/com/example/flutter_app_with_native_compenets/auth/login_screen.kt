@@ -34,7 +34,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
 @Composable
-fun LoginScreen(op: ()-> Unit){
+fun LoginScreen(op: (result:String)-> Unit){
     val email = remember { mutableStateOf("") }
     val pass=remember { mutableStateOf("") }
     val coroutineScope = rememberCoroutineScope() // Create a coroutine scope
@@ -85,8 +85,10 @@ fun LoginScreen(op: ()-> Unit){
                     try {
                         val result = signInWithEmailAndPasswordAwait(email.value, pass.value)
                         println("Login successful! User: ${result.user?.email}")
+                        op("Login successful!")
                     } catch (e: Exception) {
-                        println("Login failed: ${e.message}")
+                        op("Login Failed!")
+
                     }
                 }
             },

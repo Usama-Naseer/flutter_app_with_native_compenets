@@ -22,7 +22,8 @@ class LandingPage extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () async {
-              await AuthChannel.authenticate();
+              final result=  await AuthChannel.authenticate();
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(result.toString())));
             },
             child: const Center(child: Text('Login',)),
           ),
